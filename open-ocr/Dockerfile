@@ -1,5 +1,5 @@
 
-FROM tleyden5iwx/go-tesseract
+FROM tleyden5iwx/go-tesseract-trusted
 
 # go get open-ocr
 RUN go get -u -v github.com/tleyden/open-ocr
