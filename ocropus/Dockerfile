@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM ubuntu:14.04
 
 ENV OCROPUSPATH /opt/ocropus/ocropy
 
