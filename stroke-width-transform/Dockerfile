@@ -1,6 +1,8 @@
 
 FROM ubuntu:14.04
 
+RUN apt-get -q -y update
+
 RUN apt-get -q -y install wget
 RUN apt-get -q -y install unzip
 RUN apt-get -q -y install git
@@ -23,7 +25,7 @@ RUN mkdir -p /opt
 RUN cd /opt && git clone https://github.com/tleyden/DetectText.git
 RUN cd /opt/DetectText && g++ -o DetectText TextDetection.cpp FeaturesMain.cpp -lopencv_core -lopencv_highgui -lopencv_imgproc -I/opt/DetectText
 
-
+RUN cd /opt/DetectText && cp DetectText /usr/local/bin
 
 
 
