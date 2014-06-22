@@ -7,6 +7,12 @@ RUN mkdir -p $GOPATH
 
 RUN apt-get -q -y install git
 RUN apt-get -q -y install golang
+RUN apt-get -q -y install gcc
+
+# since we are gonna install open-ocr, we need all the tesseract / leptonica deps
+RUN apt-get -q -y install libleptonica-dev
+RUN apt-get -q -y install libtesseract3 libtesseract-dev
+RUN apt-get install -q -y tesseract-ocr-eng
 
 RUN go get -u -v github.com/tleyden/open-ocr
 
