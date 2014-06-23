@@ -13,7 +13,7 @@ RUN apt-get -q -y install golang
 
 RUN mkdir -p $GOPATH
 
-RUN mkdir -p $SGROOT/data
+RUN mkdir -p /opt
 
 RUN cd /opt && git clone https://github.com/couchbase/sync_gateway.git
 RUN cd $SGROOT && git checkout feature/remote_config
@@ -23,3 +23,4 @@ RUN cd $SGROOT && ./build.sh
 
 RUN cd $SGROOT && cp bin/sync_gateway /usr/local/bin
 
+RUN mkdir -p $SGROOT/data
