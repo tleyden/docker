@@ -8,7 +8,7 @@ ENV SGROOT /opt/sync_gateway
 
 RUN apt-get update
 
-RUN apt-get -q -y install git
+RUN apt-get -q -y install git bc
 RUN apt-get -q -y install golang
 
 RUN mkdir -p $GOPATH
