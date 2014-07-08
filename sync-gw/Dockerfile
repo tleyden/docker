@@ -16,7 +16,6 @@ RUN mkdir -p $GOPATH
 RUN mkdir -p /opt
 
 RUN cd /opt && git clone https://github.com/couchbase/sync_gateway.git
-RUN cd $SGROOT && git checkout feature/remote_config
 RUN cd $SGROOT && git submodule init && git submodule update
 
 RUN cd $SGROOT && ./build.sh
