@@ -1,4 +1,4 @@
-FROM debian:jessie
+FROM ubuntu:14.04
 
 ENV GOPATH /opt/go
 RUN apt-get update
