@@ -15,6 +15,7 @@ RUN cd /opt && git clone https://github.com/BVLC/caffe.git
 RUN apt-get -q -y install python python-dev python-pip
 RUN apt-get -q -y install pkg-config
 RUN apt-get -q -y install libfreetype6-dev 
+RUN apt-get -q -y install libgfortran3 gfortran
 RUN pip install -r /opt/caffe/python/requirements.txt
 
 # Add Caffe to python path
