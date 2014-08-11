@@ -5,7 +5,7 @@ FROM ubuntu:14.04
 RUN apt-get update
 
 # Get dependencies
-RUN apt-get install -y libprotobuf-dev libleveldb-dev libsnappy-dev libopencv-dev libboost-all-dev libhdf5-serial-dev protobuf-compiler gcc-4.6 g++-4.6 gcc-4.6-multilib g++-4.6-multilib gfortran libjpeg62 libfreeimage-dev libatlas-base-dev git python-dev python-pip bc wget curl unzip cmake liblmdb-dev
+RUN apt-get install -y libprotobuf-dev libleveldb-dev libsnappy-dev libopencv-dev libboost-all-dev libhdf5-serial-dev protobuf-compiler gcc-4.6 g++-4.6 gcc-4.6-multilib g++-4.6-multilib gfortran libjpeg62 libfreeimage-dev libatlas-base-dev git python-dev python-pip bc wget curl unzip cmake liblmdb-dev pkgconf
 
 # Use gcc 4.6
 RUN update-alternatives --install /usr/bin/cc cc /usr/bin/gcc-4.6 30 && update-alternatives --install /usr/bin/c++ c++ /usr/bin/g++-4.6 30 && update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.6 30 && update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.6 30
