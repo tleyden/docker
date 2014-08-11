@@ -30,7 +30,7 @@ RUN cd /opt/caffe && cp Makefile.config.example Makefile.config
 RUN cd /opt/caffe && echo "CPU_ONLY := 1" >> Makefile.config 
 RUN cd /opt/caffe && echo "CXX := /usr/bin/g++-4.6" >> Makefile.config 
 RUN cd /opt/caffe && sed -i 's/CXX :=/CXX ?=/' Makefile
-RUN cd /opt/caffe && make all && make test && make runtest
+RUN cd /opt/caffe && make all && make test
 
 # Install python deps
 RUN cd /opt/caffe && (pip install -r python/requirements.txt; easy_install numpy; pip install -r python/requirements.txt)
@@ -42,3 +42,5 @@ RUN ln -s /usr/local/lib/python2.7/dist-packages/numpy-1.8.2-py2.7-linux-x86_64.
 # Build Caffe python bindings
 RUN cd /opt/caffe && make pycaffe
 
+# Run tests
+RUN cd /opt/caffe && make runtest
