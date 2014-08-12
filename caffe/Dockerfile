@@ -19,7 +19,6 @@ RUN cd /opt && tar zxvf glog-0.3.3.tar.gz
 RUN cd /opt/glog-0.3.3 && ./configure && make && make install
 
 # Gflags
-RUN apt-get -q -y install cmake
 RUN cd /opt && wget https://github.com/schuhschuh/gflags/archive/master.zip
 RUN cd /opt && unzip master.zip
 RUN cd /opt/gflags-master && mkdir build 
@@ -30,7 +29,7 @@ RUN cd /opt/caffe && cp Makefile.config.example Makefile.config
 RUN cd /opt/caffe && echo "CPU_ONLY := 1" >> Makefile.config 
 RUN cd /opt/caffe && echo "CXX := /usr/bin/g++-4.6" >> Makefile.config 
 RUN cd /opt/caffe && sed -i 's/CXX :=/CXX ?=/' Makefile
-RUN cd /opt/caffe && make all && make test
+RUN cd /opt/caffe && make all
 
 # Install python deps
 RUN cd /opt/caffe && (pip install -r python/requirements.txt; easy_install numpy; pip install -r python/requirements.txt)
@@ -43,4 +42,4 @@ RUN ln -s /usr/local/lib/python2.7/dist-packages/numpy-1.8.2-py2.7-linux-x86_64.
 RUN cd /opt/caffe && make pycaffe
 
 # Run tests
-RUN cd /opt/caffe && make runtest
+RUN cd /opt/caffe && make test && make runtest
