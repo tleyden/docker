@@ -18,6 +18,12 @@ RUN cd /opt && wget https://google-glog.googlecode.com/files/glog-0.3.3.tar.gz
 RUN cd /opt && tar zxvf glog-0.3.3.tar.gz 
 RUN cd /opt/glog-0.3.3 && ./configure && make && make install
 
+# Workaround for error loading libglog: 
+#   error while loading shared libraries: libglog.so.0: cannot open shared object file
+# The system already has /usr/local/lib listed in /etc/ld.so.conf.d/libc.conf, so
+# running `ldconfig` fixes the problem (which is simpler than using $LD_LIBRARY_PATH)
+RUN ldconfig
+
 # Gflags
 RUN cd /opt && wget https://github.com/schuhschuh/gflags/archive/master.zip
 RUN cd /opt && unzip master.zip
@@ -42,5 +48,4 @@ RUN ln -s /usr/local/lib/python2.7/dist-packages/numpy-1.8.2-py2.7-linux-x86_64.
 RUN cd /opt/caffe && make pycaffe
 
 # Make + run tests
-# TODO: RUN cd /opt/caffe && make test
-# TODO: figure out why this fails RUN cd /opt/caffe && make runtest
+RUN cd /opt/caffe && make test && make runtest
