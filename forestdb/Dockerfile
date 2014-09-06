@@ -21,7 +21,7 @@ ENV GOPATH /opt/go
 RUN apt-get -q -y install golang
 RUN mkdir -p $GOPATH
 
-# If I didn't run this, it wouldn't find the /usr/local/lib/libforestdb.so
+# Without this, it won't find the /usr/local/lib/libforestdb.so
 RUN ldconfig
 
 # Get go-forestdb
