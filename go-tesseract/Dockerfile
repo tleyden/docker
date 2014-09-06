@@ -6,38 +6,7 @@ RUN apt-get update
 RUN apt-get -q -y install libleptonica-dev
 RUN apt-get -q -y install libtesseract3 libtesseract-dev
 RUN apt-get -q -y install tesseract-ocr
-RUN apt-get -q -y install tesseract-ocr-eng
-RUN apt-get -q -y install tesseract-ocr-ara    
-RUN apt-get -q -y install tesseract-ocr-bel    
-RUN apt-get -q -y install tesseract-ocr-ben    
-RUN apt-get -q -y install tesseract-ocr-bul    
-RUN apt-get -q -y install tesseract-ocr-ces    
-RUN apt-get -q -y install tesseract-ocr-dan    
-RUN apt-get -q -y install tesseract-ocr-deu    
-RUN apt-get -q -y install tesseract-ocr-ell    
-RUN apt-get -q -y install tesseract-ocr-fin    
-RUN apt-get -q -y install tesseract-ocr-fra    
-RUN apt-get -q -y install tesseract-ocr-heb    
-RUN apt-get -q -y install tesseract-ocr-hin    
-RUN apt-get -q -y install tesseract-ocr-ind    
-RUN apt-get -q -y install tesseract-ocr-isl    
-RUN apt-get -q -y install tesseract-ocr-ita    
-RUN apt-get -q -y install tesseract-ocr-jpn    
-RUN apt-get -q -y install tesseract-ocr-kor    
-RUN apt-get -q -y install tesseract-ocr-nld    
-RUN apt-get -q -y install tesseract-ocr-nor    
-RUN apt-get -q -y install tesseract-ocr-pol    
-RUN apt-get -q -y install tesseract-ocr-por    
-RUN apt-get -q -y install tesseract-ocr-ron    
-RUN apt-get -q -y install tesseract-ocr-rus    
-RUN apt-get -q -y install tesseract-ocr-spa    
-RUN apt-get -q -y install tesseract-ocr-swe    
-RUN apt-get -q -y install tesseract-ocr-tha    
-RUN apt-get -q -y install tesseract-ocr-tur    
-RUN apt-get -q -y install tesseract-ocr-ukr    
-RUN apt-get -q -y install tesseract-ocr-vie    
-RUN apt-get -q -y install tesseract-ocr-chi-sim
-RUN apt-get -q -y install tesseract-ocr-chi-tra
+RUN apt-get -q -y install tesseract-ocr-eng tesseract-ocr-ara tesseract-ocr-bel tesseract-ocr-ben tesseract-ocr-bul tesseract-ocr-ces tesseract-ocr-dan tesseract-ocr-deu tesseract-ocr-ell tesseract-ocr-fin tesseract-ocr-fra tesseract-ocr-heb tesseract-ocr-hin tesseract-ocr-ind tesseract-ocr-isl tesseract-ocr-ita tesseract-ocr-jpn tesseract-ocr-kor tesseract-ocr-nld tesseract-ocr-nor tesseract-ocr-pol tesseract-ocr-por tesseract-ocr-ron tesseract-ocr-rus tesseract-ocr-spa tesseract-ocr-swe tesseract-ocr-tha tesseract-ocr-tur tesseract-ocr-ukr tesseract-ocr-vie tesseract-ocr-chi-sim tesseract-ocr-chi-tra
 
 RUN apt-get -q -y install git
 RUN apt-get -q -y install golang
