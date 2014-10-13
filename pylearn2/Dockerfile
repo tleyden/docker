@@ -6,7 +6,7 @@ FROM ubuntu:14.04
 RUN apt-get update
 
 # Dependencies
-RUN apt-get install -y build-essential gfortran g++ libopenblas-dev git
+RUN apt-get install -y build-essential gfortran g++ libopenblas-dev git curl
 
 # Python
 RUN apt-get install -y python python-numpy python-scipy python-dev python-pip python-nose python-yaml python-imaging python-matplotlib
