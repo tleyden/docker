@@ -22,6 +22,8 @@ RUN cd /opt/glog-0.3.3 && ./configure && make && make install
 #   error while loading shared libraries: libglog.so.0: cannot open shared object file
 # The system already has /usr/local/lib listed in /etc/ld.so.conf.d/libc.conf, so
 # running `ldconfig` fixes the problem (which is simpler than using $LD_LIBRARY_PATH)
+# TODO: looks like this needs to be run _every_ time a new docker instance is run,
+#       so maybe LD_LIBRARY_PATh is a better approach (or add call to ldconfig in ~/.bashrc)
 RUN ldconfig
 
 # Gflags
