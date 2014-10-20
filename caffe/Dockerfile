@@ -12,6 +12,7 @@ RUN update-alternatives --install /usr/bin/cc cc /usr/bin/gcc-4.6 30 && update-a
 
 # Clone the Caffe repo 
 RUN cd /opt && git clone https://github.com/BVLC/caffe.git
+RUN cd /opt/caffe && git checkout 4288b2b5fc1fea600a336fc56fbaacaae5c94877
 
 # Glog 
 RUN cd /opt && wget https://google-glog.googlecode.com/files/glog-0.3.3.tar.gz
