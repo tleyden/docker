@@ -96,7 +96,5 @@ RUN NUMPY_EGG=`ls /usr/local/lib/python2.7/dist-packages | grep -i numpy` && \
 
 # Build Caffe python bindings and make + run tests
 RUN cd /opt/caffe && \
-  make pycaffe && \ 
-  make test && \
-  make runtest
+  make pycaffe
 
