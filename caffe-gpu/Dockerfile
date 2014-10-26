@@ -39,12 +39,15 @@ RUN update-alternatives --install /usr/bin/cc cc /usr/bin/gcc-4.6 30 && \
   update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.6 30 && \
   update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.6 30
 
+# Allow it to find CUDA libs
+RUN echo "/usr/local/cuda/lib64" > /etc/ld.so.conf.d/cuda.conf && \
+  ldconfig 
+
 # Clone the Caffe repo 
 # The only reason it's pinned to an older commit, is because
 # newer commits haven't been tested with this Dockerfile yet.
 RUN cd /opt && \
-  git clone https://github.com/BVLC/caffe.git && \
-  git checkout 4288b2b5fc1fea600a336fc56fbaacaae5c94877y
+  git clone https://github.com/BVLC/caffe.git
 
 # Glog 
 RUN cd /opt && wget https://google-glog.googlecode.com/files/glog-0.3.3.tar.gz && \
@@ -84,11 +87,12 @@ RUN cd /opt/caffe && \
 
 # Install python deps
 RUN cd /opt/caffe && \
-  (pip install -r python/requirements.txt; easy_install numpy; pip install -r python/requirements.txt)
-RUN easy_install pillow
+  (pip install -r python/requirements.txt; easy_install numpy; pip install -r python/requirements.txt) && \
+  easy_install pillow
 
 # Numpy include path hack - github.com/BVLC/caffe/wiki/Setting-up-Caffe-on-Ubuntu-14.04
-RUN ln -s /usr/local/lib/python2.7/dist-packages/numpy-1.8.2-py2.7-linux-x86_64.egg/numpy/core/include/numpy /usr/include/python2.7/numpy
+RUN NUMPY_EGG=`ls /usr/local/lib/python2.7/dist-packages | grep -i numpy` && \
+  ln -s /usr/local/lib/python2.7/dist-packages/$NUMPY_EGG/numpy/core/include/numpy /usr/include/python2.7/numpy
 
 # Build Caffe python bindings and make + run tests
 RUN cd /opt/caffe && \
