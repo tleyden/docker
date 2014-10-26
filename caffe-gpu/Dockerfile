@@ -7,30 +7,30 @@ MAINTAINER Traun Leyden <traun.leyden@gmail.com>
 
 # Get dependencies
 RUN apt-get update && apt-get install -y \
-  libprotobuf-dev && \
-  libleveldb-dev && \
-  libsnappy-dev && \
-  libopencv-dev && \
-  libboost-all-dev && \ 
-  libhdf5-serial-dev && \ 
-  protobuf-compiler && \ 
-  gcc-4.6 && \ 
-  g++-4.6 && \ 
-  gcc-4.6-multilib && \  
-  g++-4.6-multilib && \ 
-  gfortran && \ 
-  libjpeg62 && \ 
-  libfreeimage-dev && \  
-  libatlas-base-dev && \  
-  git && \ 
-  python-dev && \  
-  python-pip && \ 
-  bc && \ 
-  wget && \ 
-  curl && \ 
-  unzip && \ 
-  cmake && \ 
-  liblmdb-dev && \  
+  libprotobuf-dev \
+  libleveldb-dev \
+  libsnappy-dev \
+  libopencv-dev \
+  libboost-all-dev \ 
+  libhdf5-serial-dev \ 
+  protobuf-compiler \ 
+  gcc-4.6 \ 
+  g++-4.6 \ 
+  gcc-4.6-multilib \  
+  g++-4.6-multilib \ 
+  gfortran \ 
+  libjpeg62 \ 
+  libfreeimage-dev \  
+  libatlas-base-dev \  
+  git \ 
+  python-dev \  
+  python-pip \ 
+  bc \ 
+  wget \ 
+  curl \ 
+  unzip \ 
+  cmake \ 
+  liblmdb-dev \  
   pkgconf
 
 # Use gcc 4.6
@@ -40,7 +40,11 @@ RUN update-alternatives --install /usr/bin/cc cc /usr/bin/gcc-4.6 30 && \
   update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.6 30
 
 # Clone the Caffe repo 
-RUN cd /opt && git clone https://github.com/BVLC/caffe.git
+# The only reason it's pinned to an older commit, is because
+# newer commits haven't been tested with this Dockerfile yet.
+RUN cd /opt && \
+  git clone https://github.com/BVLC/caffe.git && \
+  git checkout 4288b2b5fc1fea600a336fc56fbaacaae5c94877y
 
 # Glog 
 RUN cd /opt && wget https://google-glog.googlecode.com/files/glog-0.3.3.tar.gz && \
