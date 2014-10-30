@@ -1,0 +1,13 @@
+#!/bin/sh
+
+if [ "$1" = "raz" ] || [ ! -f "/tmp/generated_ports" ]; then 
+	echo "8091:8092:11210:11211" > /tmp/generated_ports
+fi
+
+ADM_PORT=$(cat /tmp/generated_ports | cut -d':' -f1) 
+API_PORT=$(cat /tmp/generated_ports | cut -d':' -f2)
+BUK_PORT=$(cat /tmp/generated_ports | cut -d':' -f3)
+CLI_PORT=$(cat /tmp/generated_ports | cut -d':' -f4)
+
+echo $((ADM_PORT+2)):$((API_PORT+2)):$((BUK_PORT+2)):$((CLI_PORT+2)) > /tmp/generated_ports
+echo -p $ADM_PORT:8091 -p $API_PORT:8092 -p $BUK_PORT:11210 -p $CLI_PORT:11211

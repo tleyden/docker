@@ -1,0 +1,36 @@
+#!/bin/sh
+ 
+function untilsuccessful() {
+	"$@"
+	while [ $? -ne 0 ]; do
+		echo Retrying...
+		sleep 1
+		"$@"
+	done
+}
+
+IP=`hostname --ip-address`
+SEED=$1
+
+# Start Couchbase in background
+su - couchbase -c "/opt/couchbase/bin/couchbase-server -- -noinput" &
+PID=$!
+
+# Init Couchbase
+if [ -n "$SEED" ]; then
+	echo "Make Couchbase ($IP) join the cluster via $SEED"
+	untilsuccessful couchbase-cli server-add -c $SEED \
+		--user=$CB_USERNAME --password=$CB_PASSWORD \
+		--server-add=$IP
+else
+	echo "Make Couchbase ($IP) the first cluster node"
+	untilsuccessful couchbase-cli cluster-init -c $IP \
+		--cluster-init-username=$CB_USERNAME \
+		--cluster-init-password=$CB_PASSWORD
+	untilsuccessful couchbase-cli bucket-create -c $IP \
+		-u $CB_USERNAME -p $CB_PASSWORD \
+		--bucket=default --bucket-ramsize=128
+fi
+
+# Wait indefinitely on Couchbase process
+wait $PID

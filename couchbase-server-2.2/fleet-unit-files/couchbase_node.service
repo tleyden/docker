@@ -1,0 +1,13 @@
+[Unit]
+Description=couchbase_node
+
+[Service]
+TimeoutStartSec=360
+ExecStartPre=-/usr/bin/docker kill couchbase
+ExecStartPre=-/usr/bin/docker rm couchbase
+ExecStartPre=/usr/bin/docker pull ncolomer/couchbase
+ExecStart=/usr/bin/docker run --name couchbase -p 8091:8091 -p 8092:8092 -p 11210:11210 -p 11211:11211 ncolomer/couchbase
+ExecStop=/usr/bin/docker stop couchbase
+
+[X-Fleet]
+Conflicts=couchbase_node.*.service
