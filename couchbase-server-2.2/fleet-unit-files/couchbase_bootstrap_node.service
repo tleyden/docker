@@ -2,12 +2,14 @@
 [Unit]
 Description=couchbase_bootstrap_node
 
+
+
 [Service]
 TimeoutStartSec=360
 ExecStartPre=-/usr/bin/docker kill couchbase
 ExecStartPre=-/usr/bin/docker rm couchbase
 ExecStartPre=/usr/bin/docker pull tleyden5iwx/couchbase-2.2-coreos
-ExecStart=/bin/bash -c 'THIS_HOST="%H"; echo "this_host: $THIS_HOST"; /usr/bin/docker run --name couchbase --net=host tleyden5iwx/couchbase-2.2-coreos couchbase-start -bootstrap $THIS_HOST'
+ExecStart=/bin/bash -c 'while [ -z $(etcdctl get /services/couchbase/userpass) ]; do sleep 1; done; USERPASS=$(etcdctl get /services/couchbase/userpass);  /usr/bin/docker run --name couchbase --net=host tleyden5iwx/couchbase-2.2-coreos couchbase-start -bootstrap "%H" $USERPASS'
 ExecStop=/usr/bin/docker stop couchbase
 
 [X-Fleet]
