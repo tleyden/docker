@@ -42,11 +42,11 @@ elif [ $1 = -join ]; then
     shift
     BOOTSTRAP_IP=$1
     IP=$2
-    echo "Make Couchbase ($IP) join the cluster via $IP_TO_JOIN"
+    echo "Make Couchbase ($IP) join the cluster via $BOOTSTRAP_IP with $CB_USERNAME / $CB_PASSWORD "
     untilsuccessful couchbase-cli server-add -c $BOOTSTRAP_IP \
 	--user=$CB_USERNAME --password=$CB_PASSWORD \
 	--server-add=$IP
-    echo "$IP has join the cluster via $IP_TO_JOIN"
+    echo "$IP has join the cluster via $BOOTSTRAP_IP"
 
 fi
 

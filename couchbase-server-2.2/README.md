@@ -8,7 +8,9 @@
  * edit /etc/systemd/system/docker.service and add line: `LimitMEMLOCK=infinity`
  * `sudo systemctl daemon-reload`
  * `sudo systemctl restart docker`
-* Wget 
+* wget https://raw.githubusercontent.com/tleyden/docker/master/couchbase-server-2.2/fleet-unit-files/couchbase_bootstrap_node.service
+* wget https://raw.githubusercontent.com/tleyden/docker/master/couchbase-server-2.2/fleet-unit-files/couchbase_bootstrap_node_announce.service
+* wget https://raw.githubusercontent.com/tleyden/docker/master/couchbase-server-2.2/fleet-unit-files/couchbase_node.service
 
 
 # TODO
