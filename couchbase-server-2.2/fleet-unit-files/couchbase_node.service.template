@@ -6,7 +6,7 @@ TimeoutStartSec=1000
 ExecStartPre=-/usr/bin/docker kill couchbase
 ExecStartPre=-/usr/bin/docker rm couchbase
 ExecStartPre=/usr/bin/docker pull tleyden5iwx/couchbase-2.2-coreos
-ExecStart=/bin/bash -c 'while [ -z $(etcdctl get /services/couchbase) ]; do sleep 1; done; THIS_HOST="%H"; BOOTSTRAP_IP=$(etcdctl get /services/couchbase); echo "bootstrap_ip: $BOOTSTRAP_IP this_host: $THIS_HOST"; /usr/bin/docker run --name couchbase --net=host tleyden5iwx/couchbase-2.2-coreos couchbase-start -join $BOOTSTRAP_IP $THIS_HOST'
+ExecStart=/bin/bash -c 'while [ -z $(etcdctl get /services/couchbase) ]; do sleep 1; done; BOOTSTRAP_IP=$(etcdctl get /services/couchbase); echo "bootstrap_ip: $BOOTSTRAP_IP this_host: %H"; /usr/bin/docker run --name couchbase --net=host tleyden5iwx/couchbase-2.2-coreos couchbase-start -join $BOOTSTRAP_IP "%H"'
 ExecStop=/usr/bin/docker stop couchbase
 
 [X-Fleet]

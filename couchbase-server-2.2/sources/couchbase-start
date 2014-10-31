@@ -29,6 +29,9 @@ if [ $1 = -bootstrap ]; then
 
     shift
     IP=$1
+    CB_USERNAME=$2
+    CB_PASSWORD=$3
+
     echo "Make Couchbase ($IP) the first cluster node"
     untilsuccessful couchbase-cli cluster-init -c $IP \
 	--cluster-init-username=$CB_USERNAME \
@@ -42,6 +45,9 @@ elif [ $1 = -join ]; then
     shift
     BOOTSTRAP_IP=$1
     IP=$2
+    CB_USERNAME=$3
+    CB_PASSWORD=$4
+
     echo "Make Couchbase ($IP) join the cluster via $BOOTSTRAP_IP with $CB_USERNAME / $CB_PASSWORD "
     untilsuccessful couchbase-cli server-add -c $BOOTSTRAP_IP \
 	--user=$CB_USERNAME --password=$CB_PASSWORD \
