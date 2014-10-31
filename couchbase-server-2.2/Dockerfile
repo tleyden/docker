@@ -12,7 +12,7 @@ ENV CB_USERNAME		Administrator
 ENV CB_PASSWORD		couchbase
 
 # Install couchbase
-RUN yum install -y wget pkgconfig
+RUN yum install -y wget pkgconfig openssl tar hostname
 RUN rpm --install $CB_RELEASE_URL/$CB_VERSION/$CB_PACKAGE
 RUN ln -s /opt/couchbase/bin/couchbase-cli /usr/local/bin/
 
