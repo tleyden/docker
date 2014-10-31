@@ -8,7 +8,7 @@
 #
 # couchbase-start -join 10.0.1.1 10.0.1.2
 # 
-# where the first arg is the ip of first node in cluster,
+# where the first arg is the ip of the bootstrap node,
 # and second arg is the ip of the new node.
  
 function untilsuccessful() {
@@ -40,10 +40,10 @@ if [ $1 = -bootstrap ]; then
 elif [ $1 = -join ]; then
 
     shift
-    IP_TO_JOIN=$1
+    BOOTSTRAP_IP=$1
     IP=$2
     echo "Make Couchbase ($IP) join the cluster via $IP_TO_JOIN"
-    untilsuccessful couchbase-cli server-add -c $IP_TO_JOIN \
+    untilsuccessful couchbase-cli server-add -c $BOOTSTRAP_IP \
 	--user=$CB_USERNAME --password=$CB_PASSWORD \
 	--server-add=$IP
     echo "$IP has join the cluster via $IP_TO_JOIN"

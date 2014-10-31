@@ -6,7 +6,7 @@ TimeoutStartSec=360
 ExecStartPre=-/usr/bin/docker kill couchbase
 ExecStartPre=-/usr/bin/docker rm couchbase
 ExecStartPre=/usr/bin/docker pull ncolomer/couchbase
-ExecStart=/bin/bash -c 'while [ -z $(etcdctl get /services/couchbase) ]; do sleep 1; done; BOOTSTRAP_IP=$(etcdctl get /services/couchbase); /usr/bin/docker run -d --name couchbase -p 8091:8091 -p 8092:8092 -p 11210:11210 -p 11211:11211 ncolomer/couchbase couchbase-start $BOOTSTRAP_IP'
+ExecStart=/bin/bash -c 'while [ -z $(etcdctl get /services/couchbase) ]; do sleep 1; done; BOOTSTRAP_IP=$(etcdctl get /services/couchbase); /usr/bin/docker run -d --name couchbase --net=host ncolomer/couchbase couchbase-start -join $BOOTSTRAP_IP %H'
 ExecStop=/usr/bin/docker stop couchbase
 
 [X-Fleet]

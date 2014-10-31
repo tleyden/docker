@@ -99,10 +99,10 @@
         } 
       }
     },
-    "Ingress1121x": {
+    "Ingress112xx": {
       "Type": "AWS::EC2::SecurityGroupIngress",
       "Properties": {
-        "GroupName": {"Ref": "CoreOSSecurityGroup"}, "IpProtocol": "tcp", "FromPort": "11210", "ToPort": "11211", "SourceSecurityGroupId": {
+        "GroupName": {"Ref": "CoreOSSecurityGroup"}, "IpProtocol": "tcp", "FromPort": "11209", "ToPort": "11211", "SourceSecurityGroupId": {
           "Fn::GetAtt" : [ "CoreOSSecurityGroup", "GroupId" ] 
         } 
       }
@@ -117,6 +117,22 @@
       "Type": "AWS::EC2::SecurityGroupIngress",
       "Properties": {
         "GroupName": {"Ref": "CoreOSSecurityGroup"}, "IpProtocol": "tcp", "FromPort": "8092", "ToPort": "8092", "SourceSecurityGroupId": {
+          "Fn::GetAtt" : [ "CoreOSSecurityGroup", "GroupId" ] 
+        } 
+      }
+    },
+    "Ingress4369": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "GroupName": {"Ref": "CoreOSSecurityGroup"}, "IpProtocol": "tcp", "FromPort": "4369", "ToPort": "4369", "SourceSecurityGroupId": {
+          "Fn::GetAtt" : [ "CoreOSSecurityGroup", "GroupId" ] 
+        } 
+      }
+    },
+    "Ingress211xx": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "GroupName": {"Ref": "CoreOSSecurityGroup"}, "IpProtocol": "tcp", "FromPort": "21100", "ToPort": "21199", "SourceSecurityGroupId": {
           "Fn::GetAtt" : [ "CoreOSSecurityGroup", "GroupId" ] 
         } 
       }
