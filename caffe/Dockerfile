@@ -43,9 +43,12 @@ RUN cd /opt && git clone https://github.com/BVLC/caffe.git
 RUN cd /opt/caffe && git checkout 4288b2b5fc1fea600a336fc56fbaacaae5c94877
 
 # Glog 
-RUN cd /opt && wget https://google-glog.googlecode.com/files/glog-0.3.3.tar.gz
-RUN cd /opt && tar zxvf glog-0.3.3.tar.gz 
-RUN cd /opt/glog-0.3.3 && ./configure && make && make install
+RUN cd /opt && wget https://google-glog.googlecode.com/files/glog-0.3.3.tar.gz && \
+  tar zxvf glog-0.3.3.tar.gz && \
+  cd /opt/glog-0.3.3 && \
+  ./configure && \
+  make && \
+  make install
 
 # Workaround for error loading libglog: 
 #   error while loading shared libraries: libglog.so.0: cannot open shared object file
@@ -56,10 +59,17 @@ RUN cd /opt/glog-0.3.3 && ./configure && make && make install
 RUN ldconfig
 
 # Gflags
-RUN cd /opt && wget https://github.com/schuhschuh/gflags/archive/master.zip
-RUN cd /opt && unzip master.zip
-RUN cd /opt/gflags-master && mkdir build 
-RUN cd /opt/gflags-master/build && export CXXFLAGS="-fPIC" && cmake .. && make VERBOSE=1 && make && make install
+RUN cd /opt && \
+  wget https://github.com/schuhschuh/gflags/archive/master.zip && \
+  unzip master.zip && \
+  cd /opt/gflags-master && \
+  mkdir build && \
+  cd /opt/gflags-master/build && \
+  export CXXFLAGS="-fPIC" && \
+  cmake .. && \ 
+  make VERBOSE=1 && \
+  make && \
+  make install
 
 # Build Caffe core
 RUN cd /opt/caffe && cp Makefile.config.example Makefile.config
@@ -69,11 +79,13 @@ RUN cd /opt/caffe && sed -i 's/CXX :=/CXX ?=/' Makefile
 RUN cd /opt/caffe && make all
 
 # Install python deps
-RUN cd /opt/caffe && (pip install -r python/requirements.txt; easy_install numpy; pip install -r python/requirements.txt)
-RUN easy_install pillow
+RUN cd /opt/caffe && \
+  (pip install -r python/requirements.txt; easy_install numpy; pip install -r python/requirements.txt) && \
+  easy_install pillow
 
 # Numpy include path hack - github.com/BVLC/caffe/wiki/Setting-up-Caffe-on-Ubuntu-14.04
-RUN ln -s /usr/local/lib/python2.7/dist-packages/numpy-1.8.2-py2.7-linux-x86_64.egg/numpy/core/include/numpy /usr/include/python2.7/numpy
+RUN NUMPY_EGG=`ls /usr/local/lib/python2.7/dist-packages | grep -i numpy` && \
+  ln -s /usr/local/lib/python2.7/dist-packages/$NUMPY_EGG/numpy/core/include/numpy /usr/include/python2.7/numpy
 
 # Build Caffe python bindings
 RUN cd /opt/caffe && make pycaffe
