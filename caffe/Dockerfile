@@ -1,16 +1,44 @@
 
 FROM ubuntu:14.04
 
-# Get latest ubuntu packages
-RUN apt-get update
 
 # Get dependencies
-RUN apt-get install -y libprotobuf-dev libleveldb-dev libsnappy-dev libopencv-dev libboost-all-dev libhdf5-serial-dev protobuf-compiler gcc-4.6 g++-4.6 gcc-4.6-multilib g++-4.6-multilib gfortran libjpeg62 libfreeimage-dev libatlas-base-dev git python-dev python-pip bc wget curl unzip cmake liblmdb-dev pkgconf
+RUN apt-get update && apt-get install -y \
+  libprotobuf-dev \
+  libleveldb-dev \
+  libsnappy-dev \
+  libopencv-dev \
+  libboost-all-dev \ 
+  libhdf5-serial-dev \ 
+  protobuf-compiler \ 
+  gcc-4.6 \ 
+  g++-4.6 \ 
+  gcc-4.6-multilib \  
+  g++-4.6-multilib \ 
+  gfortran \ 
+  libjpeg62 \ 
+  libfreeimage-dev \  
+  libatlas-base-dev \  
+  git \ 
+  python-dev \  
+  python-pip \ 
+  bc \ 
+  wget \ 
+  curl \ 
+  unzip \ 
+  cmake \ 
+  liblmdb-dev \  
+  pkgconf
 
 # Use gcc 4.6
-RUN update-alternatives --install /usr/bin/cc cc /usr/bin/gcc-4.6 30 && update-alternatives --install /usr/bin/c++ c++ /usr/bin/g++-4.6 30 && update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.6 30 && update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.6 30
+RUN update-alternatives --install /usr/bin/cc cc /usr/bin/gcc-4.6 30 && \
+  update-alternatives --install /usr/bin/c++ c++ /usr/bin/g++-4.6 30 && \ 
+  update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.6 30 && \
+  update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.6 30
 
 # Clone the Caffe repo 
+# Pinned to an older commit, just because I know this works
+# TODO: test on latest master branch
 RUN cd /opt && git clone https://github.com/BVLC/caffe.git
 RUN cd /opt/caffe && git checkout 4288b2b5fc1fea600a336fc56fbaacaae5c94877
 
