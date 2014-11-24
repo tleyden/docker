@@ -89,3 +89,6 @@ RUN cd /opt/caffe && make pycaffe
 
 # Make + run tests
 RUN cd /opt/caffe && make test && make runtest
+    
+# Add binaries to path
+RUN bash -c 'echo "export PATH=/opt/caffe/.build_release/tools:\$PATH" >> ~/.bashrc'
