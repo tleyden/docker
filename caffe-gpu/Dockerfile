@@ -44,8 +44,6 @@ RUN echo "/usr/local/cuda/lib64" > /etc/ld.so.conf.d/cuda.conf && \
   ldconfig 
 
 # Clone the Caffe repo 
-# The only reason it's pinned to an older commit, is because
-# newer commits haven't been tested with this Dockerfile yet.
 RUN cd /opt && \
   git clone https://github.com/BVLC/caffe.git
 
@@ -98,3 +96,5 @@ RUN NUMPY_EGG=`ls /usr/local/lib/python2.7/dist-packages | grep -i numpy` && \
 RUN cd /opt/caffe && \
   make pycaffe
 
+# Add binaries to path
+RUN bash -c 'echo "export PATH=/opt/caffe/.build_release/tools:\$PATH" >> ~/.bashrc'
