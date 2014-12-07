@@ -48,7 +48,7 @@ RUN echo "/usr/local/cuda/lib64" > /etc/ld.so.conf.d/cuda.conf && \
 # Clone the Caffe repo 
 RUN cd /opt && git clone https://github.com/BVLC/caffe.git
 
-RUN cd caffe && git checkout -t origin/dev
+RUN cd /opt/caffe && git checkout -t origin/dev
 
 
 # Glog 
