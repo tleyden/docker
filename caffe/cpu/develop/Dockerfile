@@ -96,8 +96,10 @@ RUN NUMPY_EGG=`ls /usr/local/lib/python2.7/dist-packages | grep -i numpy` && \
 # Build Caffe python bindings
 RUN cd /opt/caffe && make pycaffe
 
+ 
 # Make + run tests
 RUN cd /opt/caffe && make test && make runtest
+
     
 # Add binaries to path
 RUN bash -c 'echo "export PATH=/opt/caffe/.build_release/tools:\$PATH" >> ~/.bashrc'
