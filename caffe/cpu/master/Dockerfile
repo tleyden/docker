@@ -1,8 +1,9 @@
+# Don't edit this file directly, since it was generated from a template, 
+# and you're changes will be *clobbered*.  Edit the template instead.
+
 
 FROM ubuntu:14.04
 
-# Don't edit this file directly, since it was generated from a template, 
-# and you're changes will be *clobbered*.  Edit the template instead.
 
 # Get dependencies
 RUN apt-get update && apt-get install -y \

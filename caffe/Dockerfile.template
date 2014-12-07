@@ -1,8 +1,11 @@
-
-FROM ubuntu:14.04
-
 # Don't edit this file directly, since it was generated from a template, 
 # and you're changes will be *clobbered*.  Edit the template instead.
+
+{{ if .GPU }} 
+FROM tleyden5iwx/ubuntu-cuda
+{{ else }}
+FROM ubuntu:14.04
+{{ end }}
 
 # Get dependencies
 RUN apt-get update && apt-get install -y \
