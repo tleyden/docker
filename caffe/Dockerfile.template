@@ -1,40 +1,48 @@
 
 FROM ubuntu:14.04
 
+# Don't edit this file directly, since it was generated from a template, 
+# and you're changes will be *clobbered*.  Edit the template instead.
 
 # Get dependencies
 RUN apt-get update && apt-get install -y \
+  bc \ 
+  cmake \ 
+  curl \ 
+  gcc-4.6 \ 
+  g++-4.6 \ 
+  gcc-4.6-multilib \  
+  g++-4.6-multilib \ 
+  gfortran \ 
+  git \ 
   libprotobuf-dev \
   libleveldb-dev \
   libsnappy-dev \
   libopencv-dev \
   libboost-all-dev \ 
   libhdf5-serial-dev \ 
-  protobuf-compiler \ 
-  gcc-4.6 \ 
-  g++-4.6 \ 
-  gcc-4.6-multilib \  
-  g++-4.6-multilib \ 
-  gfortran \ 
+  liblmdb-dev \  
   libjpeg62 \ 
   libfreeimage-dev \  
   libatlas-base-dev \  
-  git \ 
+  pkgconf \
+  protobuf-compiler \ 
   python-dev \  
   python-pip \ 
-  bc \ 
-  wget \ 
-  curl \ 
-  unzip \ 
-  cmake \ 
-  liblmdb-dev \  
-  pkgconf
+  unzip \
+  wget 
 
 # Use gcc 4.6
 RUN update-alternatives --install /usr/bin/cc cc /usr/bin/gcc-4.6 30 && \
   update-alternatives --install /usr/bin/c++ c++ /usr/bin/g++-4.6 30 && \ 
   update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.6 30 && \
   update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.6 30
+
+{{ if .GPU }}
+# Allow it to find CUDA libs
+RUN echo "/usr/local/cuda/lib64" > /etc/ld.so.conf.d/cuda.conf && \
+  ldconfig 
+{{ end }}
 
 # Clone the Caffe repo 
 RUN cd /opt && git clone https://github.com/BVLC/caffe.git
@@ -69,11 +77,12 @@ RUN cd /opt && \
   make install
 
 # Build Caffe core
-RUN cd /opt/caffe && cp Makefile.config.example Makefile.config
-RUN cd /opt/caffe && echo "CPU_ONLY := 1" >> Makefile.config 
-RUN cd /opt/caffe && echo "CXX := /usr/bin/g++-4.6" >> Makefile.config 
-RUN cd /opt/caffe && sed -i 's/CXX :=/CXX ?=/' Makefile
-RUN cd /opt/caffe && make all
+RUN cd /opt/caffe && \
+  cp Makefile.config.example Makefile.config && \
+  {{ if .CPU }} echo "CPU_ONLY := 1" >> Makefile.config && \ {{ else }} \ {{ end }}
+  echo "CXX := /usr/bin/g++-4.6" >> Makefile.config && \
+  sed -i 's/CXX :=/CXX ?=/' Makefile && \
+  make all
 
 # Install python deps
 RUN cd /opt/caffe && \
