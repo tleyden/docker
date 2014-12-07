@@ -43,7 +43,7 @@ RUN update-alternatives --install /usr/bin/cc cc /usr/bin/gcc-4.6 30 && \
 # Clone the Caffe repo 
 RUN cd /opt && git clone https://github.com/BVLC/caffe.git
 
-RUN git checkout -t origin/dev
+RUN cd caffe && git checkout -t origin/dev
 
 
 # Glog 
