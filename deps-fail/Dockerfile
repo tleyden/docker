@@ -14,16 +14,6 @@ RUN apt-get update && apt-get install -y \
   libleveldb-dev \
   libsnappy-dev \
   libopencv-dev \
-  libboost-all-dev \ 
-  libhdf5-serial-dev \ 
-  liblmdb-dev \  
-  libjpeg62 \ 
-  libfreeimage-dev \  
-  libatlas-base-dev \  
-  pkgconf \
-  protobuf-compiler \ 
-  python-dev \  
-  python-pip \ 
-  unzip \
-  wget 
+  libboost-all-dev 
+
 
