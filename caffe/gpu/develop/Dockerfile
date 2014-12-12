@@ -101,6 +101,6 @@ RUN NUMPY_EGG=`ls /usr/local/lib/python2.7/dist-packages | grep -i numpy` && \
 RUN cd /opt/caffe && make pycaffe
 
 
-    
-# Add binaries to path
-RUN bash -c 'echo "export PATH=/opt/caffe/.build_release/tools:\$PATH" >> ~/.bashrc'
+
+# Copy all .bin binaries -> /usr/local/bin and remove .bin extension
+RUN cd /opt/caffe/.build_release/tools && find * -name "*.bin" -exec sh -c 'DEST=$(echo {} | cut -d"." -f1) && echo "{} to /usr/local/bin/$DEST"; cp {} /usr/local/bin/$DEST && chmod +x /usr/local/bin/$DEST' \;
