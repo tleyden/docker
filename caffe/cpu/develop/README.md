@@ -1,5 +1,7 @@
 Caffe is a deep learning framework.   See the [Caffe homepage](http://caffe.berkeleyvision.org/) for more info.  
 
+**New builds are failing, I filed [issue 350](https://github.com/docker-library/official-images/issues/350)**
+
 This docker image is part of the following images generated from a single template:
 
 * CPU
@@ -15,8 +17,9 @@ This docker image is part of the following images generated from a single templa
     $ ./get_mnist.sh
     $ cd ../../examples/mnist
     $ sed -i 's/solver_mode: GPU/solver_mode: CPU/' lenet_solver.prototxt
-    $ ./create_mnist.sh
-    $ ./train_lenet.sh
+    $ cd ../../
+    $ ./examples/mnist/create_mnist.sh
+    $ ./examples/mnist/train_lenet.sh
 
 **Expected output:**
 
@@ -40,9 +43,8 @@ See [Running Caffe on AWS GPU Instance via Docker](http://tleyden.github.io/blog
 
     $ cd /opt/caffe/data/mnist
     $ ./get_mnist.sh
-    $ cd ../../examples/mnist
-    $ ./create_mnist.sh
-    $ ./train_lenet.sh
+    $ ./examples/mnist/create_mnist.sh
+    $ ./examples/mnist/train_lenet.sh
 
 **Troubleshooting:**
 
