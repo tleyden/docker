@@ -94,9 +94,6 @@ RUN cd /opt/caffe && \
 RUN cd /opt/caffe && \
   (pip install -r python/requirements.txt; easy_install numpy; pip install -r python/requirements.txt) && \
   easy_install pillow
-  
-# Add caffe module to the python path
-RUN bash -c 'echo "export PYTHONPATH=/opt/caffe/python:\$PYTHONPATH" >> ~/.bashrc'
 
 # Numpy include path hack - github.com/BVLC/caffe/wiki/Setting-up-Caffe-on-Ubuntu-14.04
 RUN NUMPY_EGG=`ls /usr/local/lib/python2.7/dist-packages | grep -i numpy` && \
