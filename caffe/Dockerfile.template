@@ -7,7 +7,7 @@ FROM tleyden5iwx/ubuntu-cuda
 FROM ubuntu:14.04
 {{ end }}
 
-ENV PYTHONPATH /opt/caffe/python:$PYTHONPATH
+ENV PYTHONPATH /opt/caffe/python
 
 # Get dependencies
 RUN apt-get update && apt-get install -y \

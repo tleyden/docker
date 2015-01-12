@@ -5,7 +5,7 @@
 FROM ubuntu:14.04
 
 
-ENV PYTHONPATH /opt/caffe/python:$PYTHONPATH
+ENV PYTHONPATH /opt/caffe/python
 
 # Get dependencies
 RUN apt-get update && apt-get install -y \
