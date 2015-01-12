@@ -5,6 +5,8 @@
 FROM tleyden5iwx/ubuntu-cuda
 
 
+ENV PYTHONPATH /opt/caffe/python:$PYTHONPATH
+
 # Get dependencies
 RUN apt-get update && apt-get install -y \
   bc \ 
