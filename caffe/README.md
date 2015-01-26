@@ -1,5 +1,7 @@
 Caffe is a deep learning framework.   See the [Caffe homepage](http://caffe.berkeleyvision.org/) for more info.  
 
+This was created for the [elastic-thought](https://github.com/tleyden/elastic-thought) project, which is a REST api wrapper around Caffe, but should be useful for anyone running Caffe.  
+
 This docker image is part of the following images generated from a single template:
 
 * CPU
