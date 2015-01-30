@@ -1,7 +1,5 @@
 Caffe is a deep learning framework.   See the [Caffe homepage](http://caffe.berkeleyvision.org/) for more info.  
 
-**New builds are failing, I filed [issue 350](https://github.com/docker-library/official-images/issues/350)**
-
 This docker image is part of the following images generated from a single template:
 
 * CPU
