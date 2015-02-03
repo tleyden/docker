@@ -31,8 +31,7 @@ RUN apt-get update && apt-get install -y \
   pkgconf \
   protobuf-compiler \ 
   python-dev \  
-  python-pip \
-  python-dot \
+  python-pip \ 
   unzip \
   wget 
 
