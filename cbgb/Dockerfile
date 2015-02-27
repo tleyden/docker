@@ -13,6 +13,7 @@ RUN yum -y update && \
   curl \
   git \
   mercurial \
+  tar \
   wget
 
 # Download and install Go 1.4
