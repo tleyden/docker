@@ -7,6 +7,9 @@ FROM ubuntu:14.04
 
 ENV PYTHONPATH /opt/caffe/python
 
+# Add caffe binaries to path
+ENV PATH $PATH:/opt/caffe/.build_release/tools
+
 # Get dependencies
 RUN apt-get update && apt-get install -y \
   bc \ 
@@ -101,5 +104,3 @@ RUN cd /opt/caffe && make pycaffe
 RUN cd /opt/caffe && make test && make runtest
 
 
-# Copy all .bin binaries -> /usr/local/bin and remove .bin extension
-RUN cd /opt/caffe/.build_release/tools && find * -name "*.bin" -exec sh -c 'DEST=$(echo {} | cut -d"." -f1) && echo "{} to /usr/local/bin/$DEST"; cp {} /usr/local/bin/$DEST && chmod +x /usr/local/bin/$DEST' \;

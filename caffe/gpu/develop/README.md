@@ -1,13 +1,13 @@
 Caffe is a deep learning framework.   See the [Caffe homepage](http://caffe.berkeleyvision.org/) for more info.  
 
+This was created for the [elastic-thought](https://github.com/tleyden/elastic-thought) project, which is a REST api wrapper around Caffe, but should be useful for anyone running Caffe.  
+
+There are CPU and GPU versions of this image:
+
 This docker image is part of the following images generated from a single template:
 
-* CPU
-    * Develop branch: [tleyden5iwx/caffe-cpu-develop](https://registry.hub.docker.com/u/tleyden5iwx/caffe-cpu-develop/)
-    * Master branch: [tleyden5iwx/caffe-cpu-master](https://registry.hub.docker.com/u/tleyden5iwx/caffe-cpu-master/)
-* GPU 
-    * Develop branch: [tleyden5iwx/caffe-gpu-develop](https://registry.hub.docker.com/u/tleyden5iwx/caffe-gpu-develop/)
-    * Master branch: [tleyden5iwx/caffe-gpu-master](https://registry.hub.docker.com/u/tleyden5iwx/caffe-gpu-master/)
+* CPU: [tleyden5iwx/caffe-cpu-master](https://registry.hub.docker.com/u/tleyden5iwx/caffe-cpu-master/)
+* GPU: [tleyden5iwx/caffe-gpu-master](https://registry.hub.docker.com/u/tleyden5iwx/caffe-gpu-master/)
 
 **Verify CPU Version:**
 
