@@ -91,6 +91,12 @@ RUN cd /opt/caffe && \
   sed -i 's/CXX :=/CXX ?=/' Makefile && \
   make all
 
+# Add ld-so.conf so it can find libcaffe.so
+ADD caffe-ld-so.conf /etc/ld.so.conf.d
+
+# Run ldconfig again (not sure if needed)
+RUN ldconfig
+
 # Install python deps
 RUN cd /opt/caffe && \
   (pip install -r python/requirements.txt; easy_install numpy; pip install -r python/requirements.txt) && \
