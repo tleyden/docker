@@ -20,14 +20,6 @@ RUN cd /opt && \
 RUN cd /opt/nvidia_installers && \
   ./cuda-linux64-rel-6.5.14-18749181.run -noprompt
 
-
-
-
-
-
-
-
-
-
-
-
+# Ensure the CUDA libs and binaries are in the correct environment variables
+ENV LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-6.5/lib64
+ENV PATH=$PATH:/usr/local/cuda-6.5/bin
