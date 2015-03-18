@@ -20,6 +20,7 @@ RUN apt-get update && apt-get install -y \
 # clone go source
 RUN cd /usr/local && \
     git clone https://go.googlesource.com/go && \
+    cd go && \
     git checkout go1.4.2 
 
 # build it
