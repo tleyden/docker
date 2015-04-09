@@ -21,5 +21,5 @@ RUN wget http://golang.org/dl/go1.4.1.linux-amd64.tar.gz && \
     tar -C /usr/local -xzf go1.4.1.linux-amd64.tar.gz && \
     rm go1.4.1.linux-amd64.tar.gz
 
-# Install couchbase-cluster-go
+# Install cbgb
 RUN go get -u -v -t github.com/couchbaselabs/cbgb/...
