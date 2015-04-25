@@ -2,6 +2,8 @@ FROM ubuntu:14.04
 
 MAINTAINER Traun Leyden <tleyden@couchbase.com>
 
+ENV LC_ALL C.UTF-8
+
 # Get dependencies
 RUN apt-get update && apt-get install -y \
   bundler \
