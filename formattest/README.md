@@ -28,7 +28,7 @@ Resulting container architecture:
 docker run -d -v ~/couchbase:/opt/couchbase/var -p8091:8091 couchbase/server
 ```
 
-You will end up with:
+Resulting container architecture:
 
 ```
 ┌───────────────────────┐                                                      
@@ -160,5 +160,19 @@ where _container ID_ is either the hexadecimal ID string (as shown by `docker ps
 
 
 ## Multiple hosts, multiple containers per host (hard)
+
+```
+┌─────────────────────────────────────────┐  ┌─────────────────────────────────────────┐
+│            Host OS (Ubuntu)             │  │            Host OS (Ubuntu)             │
+│ ┌─────────────────┐ ┌─────────────────┐ │  │ ┌─────────────────┐ ┌─────────────────┐ │
+│ │  Container OS   │ │  Container OS   │ │  │ │  Container OS   │ │  Container OS   │ │
+│ │    (CentOS)     │ │    (CentOS)     │ │  │ │    (CentOS)     │ │    (CentOS)     │ │
+│ │  ┌───────────┐  │ │  ┌───────────┐  │ │  │ │  ┌───────────┐  │ │  ┌───────────┐  │ │
+│ │  │ Couchbase │  │ │  │ Couchbase │  │ │  │ │  │ Couchbase │  │ │  │ Couchbase │  │ │
+│ │  │  Server   │  │ │  │  Server   │  │ │  │ │  │  Server   │  │ │  │  Server   │  │ │
+│ │  └───────────┘  │ │  └───────────┘  │ │  │ │  └───────────┘  │ │  └───────────┘  │ │
+│ └─────────────────┘ └─────────────────┘ │  │ └─────────────────┘ └─────────────────┘ │
+└─────────────────────────────────────────┘  └─────────────────────────────────────────┘
+```
 
 This is very difficult to achieve with Docker, because there is no native way to allow each container unrestricted access to the internal IPs of containers running on other hosts. There are software networking layers such as [Flannel](https://github.com/coreos/flannel "Flannel") and [Weave](https://github.com/weaveworks/weave "Weave"), but it is beyond the scope of this README to cover how those might be configured. This is not a particularly useful deployment scenario for either testing or production use, so we will simply suggest that you not try this.
