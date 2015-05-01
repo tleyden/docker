@@ -22,23 +22,29 @@ A Couchbase Server Docker container will write all persistent and node-specific 
 
 This is a quick way to try out Couchbase Server on your own machine with no installation overhead - download and run! In this case, any networking configuration will work; the only real requirement is that port 8091 be exposed so that you can access the Couchbase Admin Console.
 
-    docker run -d -v ~/couchbase:/opt/couchbase/var -p8091:8091 couchbase/server
-    
-                                                                                      
-       ┌───────────────────────┐                                                      
-       │  Host OS (Ubuntu...)  │                                                      
-       │  ┌─────────────────┐  │                                                      
-       │  │  Container OS   │  │                                                      
-       │  │    (CentOS)     │  │                                                      
-       │  │  ┌───────────┐  │  │                                                      
-       │  │  │ Couchbase │  │  │                                                      
-       │  │  │  Server   │  │  │                                                      
-       │  │  └───────────┘  │  │                                                      
-       │  │                 │  │                                                      
-       │  └─────────────────┘  │                                                      
-       │                       │                                                      
-       └───────────────────────┘                                                      
+To run the container:
 
+```
+docker run -d -v ~/couchbase:/opt/couchbase/var -p8091:8091 couchbase/server
+```
+
+You will end up with:
+
+```                                                                                      
+┌───────────────────────┐                                                      
+│  Host OS (Ubuntu...)  │                                                      
+│  ┌─────────────────┐  │                                                      
+│  │  Container OS   │  │                                                      
+│  │    (CentOS)     │  │                                                      
+│  │  ┌───────────┐  │  │                                                      
+│  │  │ Couchbase │  │  │                                                      
+│  │  │  Server   │  │  │                                                      
+│  │  └───────────┘  │  │                                                      
+│  │                 │  │                                                      
+│  └─────────────────┘  │                                                      
+│                       │                                                      
+└───────────────────────┘                                                      
+```
 
 ## Multiple hosts in a single datacenter, single container on each host (easy)
 
@@ -46,27 +52,33 @@ This is a "true" Couchbase Server cluster, where each node runs on a dedicated h
 
 In this case, the most efficient way to run your cluster in Docker is to use the host's own networking stack, by running each container with the `--net=host` option. There is no need to use `-p` to "expose" any ports. Each container will use the IP address(es) of its host.
 
-    docker run -d -v ~/couchbase:/opt/couchbase/var --net=host couchbase/server
+To run the container:
+
+```
+docker run -d -v ~/couchbase:/opt/couchbase/var --net=host couchbase/server
+```
 
 You can access the Couchbase Server Admin Console via port 8091 on any of the hosts.
 
 In addition to being easy to set up, this is also likely to be the most performant way to deploy a Docker-based cluster as there will be no Docker-imposed networking overhead.
-    
-                                                                                      
-       ┌───────────────────────┐  ┌───────────────────────┐  ┌───────────────────────┐
-       │  Host OS (Ubuntu...)  │  │  Host OS (Ubuntu...)  │  │  Host OS (Ubuntu...)  │
-       │  ┌─────────────────┐  │  │  ┌─────────────────┐  │  │  ┌─────────────────┐  │
-       │  │  Container OS   │  │  │  │  Container OS   │  │  │  │  Container OS   │  │
-       │  │    (CentOS)     │  │  │  │    (CentOS)     │  │  │  │    (CentOS)     │  │
-       │  │  ┌───────────┐  │  │  │  │  ┌───────────┐  │  │  │  │  ┌───────────┐  │  │
-       │  │  │ Couchbase │  │  │  │  │  │ Couchbase │  │  │  │  │  │ Couchbase │  │  │
-       │  │  │  Server   │  │  │  │  │  │  Server   │  │  │  │  │  │  Server   │  │  │
-       │  │  └───────────┘  │  │  │  │  └───────────┘  │  │  │  │  └───────────┘  │  │
-       │  │                 │  │  │  │                 │  │  │  │                 │  │
-       │  └─────────────────┘  │  │  └─────────────────┘  │  │  └─────────────────┘  │
-       │                       │  │                       │  │                       │
-       └───────────────────────┘  └───────────────────────┘  └───────────────────────┘
 
+You will end up with:
+
+```                                                                                   
+┌───────────────────────┐  ┌───────────────────────┐  ┌───────────────────────┐
+│  Host OS (Ubuntu...)  │  │  Host OS (Ubuntu...)  │  │  Host OS (Ubuntu...)  │
+│  ┌─────────────────┐  │  │  ┌─────────────────┐  │  │  ┌─────────────────┐  │
+│  │  Container OS   │  │  │  │  Container OS   │  │  │  │  Container OS   │  │
+│  │    (CentOS)     │  │  │  │    (CentOS)     │  │  │  │    (CentOS)     │  │
+│  │  ┌───────────┐  │  │  │  │  ┌───────────┐  │  │  │  │  ┌───────────┐  │  │
+│  │  │ Couchbase │  │  │  │  │  │ Couchbase │  │  │  │  │  │ Couchbase │  │  │
+│  │  │  Server   │  │  │  │  │  │  Server   │  │  │  │  │  │  Server   │  │  │
+│  │  └───────────┘  │  │  │  │  └───────────┘  │  │  │  │  └───────────┘  │  │
+│  │                 │  │  │  │                 │  │  │  │                 │  │
+│  └─────────────────┘  │  │  └─────────────────┘  │  │  └─────────────────┘  │
+│                       │  │                       │  │                       │
+└───────────────────────┘  └───────────────────────┘  └───────────────────────┘
+```
 
 ## Running in environments with SDN (easy)
 
@@ -82,26 +94,30 @@ As for data persistence and keeping data around while upgrading the version of C
 
 So the `docker run` command for nodes in Joyent becomes very easy:
 
-    docker run -d couchbase/server
+```
+docker run -d couchbase/server
+```
 
 Just remember to also specify `-P` for one or two nodes so you can connect to port 8091 for the Admin Console.
-    
-                                                                                      
-       ┌─────────────────────────────────────────────────────┐                        
-       │                     Environment                     │                        
-       │                                                     │                        
-       │  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐  │                        
-       │  │  Couchbase  │  │  Couchbase  │  │  Couchbase  │  │                        
-       │  │   Server    │  │   Server    │  │   Server    │  │                        
-       │  │             │  │             │  │             │  │                        
-       │  │ private ip: │  │ private ip: │  │ private ip: │  │                        
-       │  │ 10.20.21.1  │  │ 10.20.21.2  │  │ 10.20.21.3  │  │                        
-       │  │             │  │             │  │             │  │                        
-       │  │ public ip:  │  │             │  │             │  │                        
-       │  │ 62.87.22.8  │  │             │  │             │  │                        
-       │  └─────────────┘  └─────────────┘  └─────────────┘  │                        
-       └─────────────────────────────────────────────────────┘
 
+You will end up with:
+
+```
+┌─────────────────────────────────────────────────────┐                        
+│                     Environment                     │                        
+│                                                     │                        
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐  │                        
+│  │  Couchbase  │  │  Couchbase  │  │  Couchbase  │  │                        
+│  │   Server    │  │   Server    │  │   Server    │  │                        
+│  │             │  │             │  │             │  │                        
+│  │ private ip: │  │ private ip: │  │ private ip: │  │                        
+│  │ 10.20.21.1  │  │ 10.20.21.2  │  │ 10.20.21.3  │  │                        
+│  │             │  │             │  │             │  │                        
+│  │ public ip:  │  │             │  │             │  │                        
+│  │ 62.87.22.8  │  │             │  │             │  │                        
+│  └─────────────┘  └─────────────┘  └─────────────┘  │                        
+└─────────────────────────────────────────────────────┘
+```
 
 ## Multiple containers on a single host (medium)
 
@@ -111,25 +127,30 @@ Still, if you want to play around with a local cluster to watch how rebalancing,
 
 You can choose to mount `/opt/couchbase/var` from the host as you like. If you do so, though, remember to give each container a separate host directory!
 
-    docker run -d -v ~/couchbase/node1:/opt/couchbase/var couchbase/server
-    docker run -d -v ~/couchbase/node2:/opt/couchbase/var couchbase/server
-    docker run -d -v ~/couchbase/node3:/opt/couchbase/var -p 8091:8091 couchbase/server
+```
+docker run -d -v ~/couchbase/node1:/opt/couchbase/var couchbase/server
+docker run -d -v ~/couchbase/node2:/opt/couchbase/var couchbase/server
+docker run -d -v ~/couchbase/node3:/opt/couchbase/var -p 8091:8091 couchbase/server
+```
 
-                                                                                      
-       ┌──────────────────────────────────────────────────────────┐                   
-       │                    Host OS (Ubuntu...)                   │                   
-       │                                                          │                   
-       │  ┌───────────────┐ ┌───────────────┐  ┌───────────────┐  │                   
-       │  │ Container OS  │ │ Container OS  │  │ Container OS  │  │                   
-       │  │   (CentOS)    │ │   (CentOS)    │  │   (CentOS)    │  │                   
-       │  │ ┌───────────┐ │ │ ┌───────────┐ │  │ ┌───────────┐ │  │                   
-       │  │ │ Couchbase │ │ │ │ Couchbase │ │  │ │ Couchbase │ │  │                   
-       │  │ │  Server   │ │ │ │  Server   │ │  │ │  Server   │ │  │                   
-       │  │ └───────────┘ │ │ └───────────┘ │  │ └───────────┘ │  │                   
-       │  │               │ │               │  │               │  │                   
-       │  └───────────────┘ └───────────────┘  └───────────────┘  │                   
-       │                                                          │                   
-       └──────────────────────────────────────────────────────────┘                   
+You will end up with:
+
+```
+┌──────────────────────────────────────────────────────────┐                   
+│                    Host OS (Ubuntu...)                   │                   
+│                                                          │                   
+│  ┌───────────────┐ ┌───────────────┐  ┌───────────────┐  │                   
+│  │ Container OS  │ │ Container OS  │  │ Container OS  │  │                   
+│  │   (CentOS)    │ │   (CentOS)    │  │   (CentOS)    │  │                   
+│  │ ┌───────────┐ │ │ ┌───────────┐ │  │ ┌───────────┐ │  │                   
+│  │ │ Couchbase │ │ │ │ Couchbase │ │  │ │ Couchbase │ │  │                   
+│  │ │  Server   │ │ │ │  Server   │ │  │ │  Server   │ │  │                   
+│  │ └───────────┘ │ │ └───────────┘ │  │ └───────────┘ │  │                   
+│  │               │ │               │  │               │  │                   
+│  └───────────────┘ └───────────────┘  └───────────────┘  │                   
+│                                                          │                   
+└──────────────────────────────────────────────────────────┘                   
+```
 
 By the way, to find out what the internal IP addresses of your containers are, use this command:
 
