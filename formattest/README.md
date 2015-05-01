@@ -78,7 +78,13 @@ Resulting container architecture:
 
 ## Running in environments with SDN (easy)
 
-Some cloud providers, such as Amazon ECS and Joyent's Triton Container Cloud, provide Software Defined Networking (SDN) which simplifies the networking setup required to run Couchbase Server. We have experimented with Couchbase Server deployments on Joyent's Triton offering and have been very pleased with the performance and ease of use, so this section will be based on those experiences.
+Some cloud providers, such as:
+
+* Joyent Triton Container Cloud
+* Amazon ECS
+* Google Container Engine
+
+provide Software Defined Networking (SDN) which simplifies the networking setup required to run Couchbase Server.  We have experimented with Couchbase Server deployments on Joyent's Triton offering and have been very pleased with the performance and ease of use, so this section will be based on those experiences.
 
 Within Joyent, a container is itself a first-class citizen; there is no "host" for the container. This is how they achieve bare-metal speeds while keeping the advantages of containerization. Each container is given an IP on an account-wide LAN. Every container can see every other container on these internal IP addresses, so when configuring the cluster, these are the IPs you should use. The network infrastructure between containers is handled automatically and efficiently.
 
