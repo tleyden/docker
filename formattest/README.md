@@ -22,7 +22,7 @@ A Couchbase Server Docker container will write all persistent and node-specific 
 
 This is a quick way to try out Couchbase Server on your own machine with no installation overhead - download and run! In this case, any networking configuration will work; the only real requirement is that port 8091 be exposed so that you can access the Couchbase Admin Console.
 
-Resulting container architecture:
+Start the container:
 
 ```
 docker run -d -v ~/couchbase:/opt/couchbase/var -p8091:8091 couchbase/server
@@ -50,7 +50,7 @@ This is a "true" Couchbase Server cluster, where each node runs on a dedicated h
 
 In this case, the most efficient way to run your cluster in Docker is to use the host's own networking stack, by running each container with the `--net=host` option. There is no need to use `-p` to "expose" any ports. Each container will use the IP address(es) of its host.
 
-To run the container:
+Start the container:
 
 ```
 docker run -d -v ~/couchbase:/opt/couchbase/var --net=host couchbase/server
@@ -76,7 +76,7 @@ Resulting container architecture:
 └───────────────────────┘  └───────────────────────┘  └───────────────────────┘
 ```
 
-## Running in environments with SDN (easy)
+## Running in container clouds with SDN (easy)
 
 Some cloud providers, such as:
 
