@@ -22,7 +22,7 @@ A Couchbase Server Docker container will write all persistent and node-specific 
 
 This is a quick way to try out Couchbase Server on your own machine with no installation overhead - download and run! In this case, any networking configuration will work; the only real requirement is that port 8091 be exposed so that you can access the Couchbase Admin Console.
 
-To run the container:
+Resulting container architecture:
 
 ```
 docker run -d -v ~/couchbase:/opt/couchbase/var -p8091:8091 couchbase/server
@@ -60,21 +60,20 @@ You can access the Couchbase Server Admin Console via port 8091 on any of the ho
 
 In addition to being easy to set up, this is also likely to be the most performant way to deploy a Docker-based cluster as there will be no Docker-imposed networking overhead.
 
-You will end up with:
+Resulting container architecture:
 
 ```
-┌──────────────────────────────────────────────────────────┐                   
-│                     Host OS (Ubuntu)                     │                   
-│                                                          │                   
-│  ┌───────────────┐ ┌───────────────┐  ┌───────────────┐  │                   
-│  │ Container OS  │ │ Container OS  │  │ Container OS  │  │                   
-│  │   (CentOS)    │ │   (CentOS)    │  │   (CentOS)    │  │                   
-│  │ ┌───────────┐ │ │ ┌───────────┐ │  │ ┌───────────┐ │  │                   
-│  │ │ Couchbase │ │ │ │ Couchbase │ │  │ │ Couchbase │ │  │                   
-│  │ │  Server   │ │ │ │  Server   │ │  │ │  Server   │ │  │                   
-│  │ └───────────┘ │ │ └───────────┘ │  │ └───────────┘ │  │                   
-│  └───────────────┘ └───────────────┘  └───────────────┘  │                   
-└──────────────────────────────────────────────────────────┘                   
+┌───────────────────────┐  ┌───────────────────────┐  ┌───────────────────────┐
+│   Host OS (Ubuntu)    │  │   Host OS (Ubuntu)    │  │   Host OS (Ubuntu)    │
+│  ┌─────────────────┐  │  │  ┌─────────────────┐  │  │  ┌─────────────────┐  │
+│  │  Container OS   │  │  │  │  Container OS   │  │  │  │  Container OS   │  │
+│  │    (CentOS)     │  │  │  │    (CentOS)     │  │  │  │    (CentOS)     │  │
+│  │  ┌───────────┐  │  │  │  │  ┌───────────┐  │  │  │  │  ┌───────────┐  │  │
+│  │  │ Couchbase │  │  │  │  │  │ Couchbase │  │  │  │  │  │ Couchbase │  │  │
+│  │  │  Server   │  │  │  │  │  │  Server   │  │  │  │  │  │  Server   │  │  │
+│  │  └───────────┘  │  │  │  │  └───────────┘  │  │  │  │  └───────────┘  │  │
+│  └─────────────────┘  │  │  └─────────────────┘  │  │  └─────────────────┘  │
+└───────────────────────┘  └───────────────────────┘  └───────────────────────┘
 ```
 
 ## Running in environments with SDN (easy)
@@ -97,7 +96,7 @@ docker run -d couchbase/server
 
 Just remember to also specify `-P` for one or two nodes so you can connect to port 8091 for the Admin Console.
 
-You will end up with:
+Resulting container architecture:
 
 ```
 ┌─────────────────────────────────────────────────────┐                        
@@ -130,20 +129,21 @@ docker run -d -v ~/couchbase/node2:/opt/couchbase/var couchbase/server
 docker run -d -v ~/couchbase/node3:/opt/couchbase/var -p 8091:8091 couchbase/server
 ```
 
-You will end up with:
+Resulting container architecture:
 
 ```
-┌───────────────────────┐  ┌───────────────────────┐  ┌───────────────────────┐
-│   Host OS (Ubuntu)    │  │   Host OS (Ubuntu)    │  │   Host OS (Ubuntu)    │
-│  ┌─────────────────┐  │  │  ┌─────────────────┐  │  │  ┌─────────────────┐  │
-│  │  Container OS   │  │  │  │  Container OS   │  │  │  │  Container OS   │  │
-│  │    (CentOS)     │  │  │  │    (CentOS)     │  │  │  │    (CentOS)     │  │
-│  │  ┌───────────┐  │  │  │  │  ┌───────────┐  │  │  │  │  ┌───────────┐  │  │
-│  │  │ Couchbase │  │  │  │  │  │ Couchbase │  │  │  │  │  │ Couchbase │  │  │
-│  │  │  Server   │  │  │  │  │  │  Server   │  │  │  │  │  │  Server   │  │  │
-│  │  └───────────┘  │  │  │  │  └───────────┘  │  │  │  │  └───────────┘  │  │
-│  └─────────────────┘  │  │  └─────────────────┘  │  │  └─────────────────┘  │
-└───────────────────────┘  └───────────────────────┘  └───────────────────────┘
+┌──────────────────────────────────────────────────────────┐                   
+│                     Host OS (Ubuntu)                     │                   
+│                                                          │                   
+│  ┌───────────────┐ ┌───────────────┐  ┌───────────────┐  │                   
+│  │ Container OS  │ │ Container OS  │  │ Container OS  │  │                   
+│  │   (CentOS)    │ │   (CentOS)    │  │   (CentOS)    │  │                   
+│  │ ┌───────────┐ │ │ ┌───────────┐ │  │ ┌───────────┐ │  │                   
+│  │ │ Couchbase │ │ │ │ Couchbase │ │  │ │ Couchbase │ │  │                   
+│  │ │  Server   │ │ │ │  Server   │ │  │ │  Server   │ │  │                   
+│  │ └───────────┘ │ │ └───────────┘ │  │ └───────────┘ │  │                   
+│  └───────────────┘ └───────────────┘  └───────────────┘  │                   
+└──────────────────────────────────────────────────────────┘                   
 ```
 
 By the way, to find out what the internal IP addresses of your containers are, use this command:
