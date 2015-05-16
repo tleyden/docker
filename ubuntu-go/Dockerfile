@@ -29,7 +29,7 @@ RUN go get golang.org/x/tools/cmd/... && \
     go get -u -v golang.org/x/tools/cmd/goimports && \
     go get -u -v github.com/golang/lint/golint && \
     go get -u -v github.com/rogpeppe/godef && \
-    go get -u -v github.com/smartystreets/goconvey && \
+    go get -u -v github.com/smartystreets/goconvey
 
 # clone emacs conf
 RUN git clone https://github.com/fgimenez/.emacs.d.git /root/.emacs.d && \
