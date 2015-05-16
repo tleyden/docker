@@ -11,32 +11,25 @@ RUN apt-get update && apt-get install -y \
   bc \
   build-essential \
   curl \
-  emacs \
+  emacs24-nox \
   git \
   mercurial \
   wget && \
   apt-get clean
 
-# clone go source
-RUN cd /usr/local && \
-    git clone https://go.googlesource.com/go && \
-    cd go && \
-    git checkout go1.4.2 
+# Install Go
+RUN wget http://golang.org/dl/go1.4.2.linux-amd64.tar.gz && \
+    tar -C /usr/local -xzf go1.4.2.linux-amd64.tar.gz && \
+    rm go1.4.2.linux-amd64.tar.gz
 
-# build it
-RUN cd /usr/local/go/src; \
-    ./all.bash; \
-    echo "Done building"
-
-# install go tools
-RUN go get golang.org/x/tools/cmd/...
-
-# install go packages needed for emacs config
-RUN go get github.com/tools/godep && \
-    go get github.com/nsf/gocode && \
-    go get code.google.com/p/go.tools/cmd/goimports && \
-    go get github.com/golang/lint/golint && \
-    go get code.google.com/p/rog-go/exp/cmd/godef
+# Install go packages
+RUN go get golang.org/x/tools/cmd/... && \
+    go get github.com/tools/godep && \
+    go get -u -v github.com/nsf/gocode && \
+    go get -u -v golang.org/x/tools/cmd/goimports && \
+    go get -u -v github.com/golang/lint/golint && \
+    go get -u -v github.com/rogpeppe/godef && \
+    go get -u -v github.com/smartystreets/goconvey && \
 
 # clone emacs conf
 RUN git clone https://github.com/fgimenez/.emacs.d.git /root/.emacs.d && \
