@@ -7,7 +7,8 @@ ENV CUDA_RUN http://developer.download.nvidia.com/compute/cuda/6_5/rel/installer
 
 RUN apt-get update && apt-get install -q -y \
   wget \
-  build-essential 
+  build-essential \
+  module-init-tools
 
 RUN cd /opt && \
   wget $CUDA_RUN && \
@@ -15,9 +16,7 @@ RUN cd /opt && \
   mkdir nvidia_installers && \
   ./cuda_6.5.14_linux_64.run -extract=`pwd`/nvidia_installers && \
   cd nvidia_installers && \
-  ./NVIDIA-Linux-x86_64-340.29.run -s -N --no-kernel-module
-
-RUN cd /opt/nvidia_installers && \
+  ./NVIDIA-Linux-x86_64-340.29.run -s -N --no-kernel-module && \
   ./cuda-linux64-rel-6.5.14-18749181.run -noprompt
 
 # Ensure the CUDA libs and binaries are in the correct environment variables
