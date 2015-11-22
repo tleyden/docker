@@ -1,5 +1,5 @@
 
-Run [neural-style]() under Docker and leverage CUDA GPUs.
+Run [neural-style](https://github.com/jcjohnson/neural-style) under Docker and leverage CUDA GPUs.
 
 ## References
 
