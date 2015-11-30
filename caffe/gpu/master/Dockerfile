@@ -1,7 +1,7 @@
-# Don't edit this file directly, since it was generated from a template, 
+# Don't edit this file directly, since it was generated from a template,
 # and you're changes will be *clobbered*.  Edit the template instead.
 
- 
+
 FROM tleyden5iwx/ubuntu-cuda
 
 
@@ -12,49 +12,49 @@ ENV PATH $PATH:/opt/caffe/.build_release/tools
 
 # Get dependencies
 RUN apt-get update && apt-get install -y \
-  bc \ 
-  cmake \ 
-  curl \ 
-  gcc-4.6 \ 
-  g++-4.6 \ 
-  gcc-4.6-multilib \  
-  g++-4.6-multilib \ 
-  gfortran \ 
-  git \ 
+  bc \
+  cmake \
+  curl \
+  gcc-4.6 \
+  g++-4.6 \
+  gcc-4.6-multilib \
+  g++-4.6-multilib \
+  gfortran \
+  git \
   libprotobuf-dev \
   libleveldb-dev \
   libsnappy-dev \
   libopencv-dev \
-  libboost-all-dev \ 
-  libhdf5-serial-dev \ 
-  liblmdb-dev \  
-  libjpeg62 \ 
-  libfreeimage-dev \  
-  libatlas-base-dev \  
+  libboost-all-dev \
+  libhdf5-serial-dev \
+  liblmdb-dev \
+  libjpeg62 \
+  libfreeimage-dev \
+  libatlas-base-dev \
   pkgconf \
-  protobuf-compiler \ 
-  python-dev \  
-  python-pip \ 
+  protobuf-compiler \
+  python-dev \
+  python-pip \
   unzip \
-  wget 
+  wget
 
 # Use gcc 4.6
 RUN update-alternatives --install /usr/bin/cc cc /usr/bin/gcc-4.6 30 && \
-  update-alternatives --install /usr/bin/c++ c++ /usr/bin/g++-4.6 30 && \ 
+  update-alternatives --install /usr/bin/c++ c++ /usr/bin/g++-4.6 30 && \
   update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.6 30 && \
   update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.6 30
 
 
 # Allow it to find CUDA libs
 RUN echo "/usr/local/cuda/lib64" > /etc/ld.so.conf.d/cuda.conf && \
-  ldconfig 
+  ldconfig
 
 
-# Clone the Caffe repo 
+# Clone the Caffe repo
 RUN cd /opt && git clone https://github.com/BVLC/caffe.git
 
 
-# Glog 
+# Glog
 RUN cd /opt && wget https://google-glog.googlecode.com/files/glog-0.3.3.tar.gz && \
   tar zxvf glog-0.3.3.tar.gz && \
   cd /opt/glog-0.3.3 && \
@@ -62,7 +62,7 @@ RUN cd /opt && wget https://google-glog.googlecode.com/files/glog-0.3.3.tar.gz &
   make && \
   make install
 
-# Workaround for error loading libglog: 
+# Workaround for error loading libglog:
 #   error while loading shared libraries: libglog.so.0: cannot open shared object file
 # The system already has /usr/local/lib listed in /etc/ld.so.conf.d/libc.conf, so
 # running `ldconfig` fixes the problem (which is simpler than using $LD_LIBRARY_PATH)
@@ -78,7 +78,7 @@ RUN cd /opt && \
   mkdir build && \
   cd /opt/gflags-master/build && \
   export CXXFLAGS="-fPIC" && \
-  cmake .. && \ 
+  cmake .. && \
   make VERBOSE=1 && \
   make && \
   make install
