@@ -13,6 +13,7 @@ RUN apt-get update && \
       libssl-dev \
       openssl \
       python \
+      libjemalloc-dev \
       wget && \
     apt-get clean
 
@@ -41,7 +42,9 @@ WORKDIR /opt/couchbase-build/source
 
 # Checkout and build code
 RUN repo init -u git://github.com/couchbase/manifest -m branch-master.xml && \
-    repo sync && \
-    make 
+    repo sync
+
+# Build
+RUN make
 
 
