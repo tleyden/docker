@@ -41,7 +41,7 @@ RUN mkdir -p /opt/couchbase-build/source
 WORKDIR /opt/couchbase-build/source
 
 # Checkout and build code
-RUN repo init -u git://github.com/couchbase/manifest -m sherlock.xml && \
+RUN repo init -u git://github.com/tleyden/manifest -m branch-master-snapshot.xml && \
     repo sync
 
 # Build
