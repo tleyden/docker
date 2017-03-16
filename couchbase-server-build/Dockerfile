@@ -1,7 +1,7 @@
 FROM ubuntu:trusty
 
 # Based on instructions from https://github.com/couchbase/tlm
-# Re-inventing the wheel: https://github.com/couchbase/build/blob/master/docker/buildslaves/ubuntu-16.04/jenkins/Dockerfile
+# It turns out this container re-invents this wheel: https://github.com/couchbase/build/blob/master/docker/buildslaves/ubuntu-16.04/jenkins/Dockerfile
 
 # Install packages
 RUN apt-get update && \
@@ -10,7 +10,6 @@ RUN apt-get update && \
       cmake \
       curl \
       git \
-      # libssl0.9.8 \  # probably not needed!!
       libssl-dev \
       openssl \
       python \
