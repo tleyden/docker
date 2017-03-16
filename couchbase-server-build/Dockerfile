@@ -8,12 +8,16 @@ RUN apt-get update && \
       build-essential \
       cmake \
       curl \
+      erlang \
       git \
-      # libssl0.9.8 \  # probably not needed!!
+      libcurl4-openssl-dev \
+      libevent1-dev \
+      libicu-dev \
       libssl-dev \
+      libsnappy-dev \
       openssl \
       python \
-      libjemalloc-dev \
+      libv8-dev \
       wget && \
     apt-get clean
 
@@ -41,7 +45,7 @@ RUN mkdir -p /opt/couchbase-build/source
 WORKDIR /opt/couchbase-build/source
 
 # Checkout and build code
-RUN repo init -u git://github.com/couchbase/manifest -m branch-master.xml && \
+RUN repo init -u git://github.com/couchbase/manifest -m sherlock.xml && \
     repo sync
 
 # Build
