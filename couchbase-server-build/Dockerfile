@@ -14,7 +14,6 @@ RUN apt-get update && \
       libssl-dev \
       openssl \
       python \
-      libjemalloc-dev \
       wget && \
     apt-get clean
 
