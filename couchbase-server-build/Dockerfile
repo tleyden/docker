@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:trusty
 
 # Based on instructions from https://github.com/couchbase/tlm
 # Re-inventing the wheel: https://github.com/couchbase/build/blob/master/docker/buildslaves/ubuntu-16.04/jenkins/Dockerfile
