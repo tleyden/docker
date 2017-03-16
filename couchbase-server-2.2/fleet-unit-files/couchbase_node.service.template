@@ -1,0 +1,14 @@
+[Unit]
+Description=couchbase_node
+
+[Service]
+TimeoutStartSec=1000
+ExecStartPre=-/usr/bin/docker kill couchbase
+ExecStartPre=-/usr/bin/docker rm couchbase
+ExecStartPre=/usr/bin/docker pull tleyden5iwx/couchbase-2.2-coreos
+ExecStart=/bin/bash -c 'while [ -z $(etcdctl get /services/couchbase/bootstrap_ip) ]; do sleep 1; done; BOOTSTRAP_IP=$(etcdctl get /services/couchbase/bootstrap_ip); echo "bootstrap_ip: $BOOTSTRAP_IP this_host: %H"; /usr/bin/docker run --name couchbase --net=host tleyden5iwx/couchbase-2.2-coreos couchbase-start -join $BOOTSTRAP_IP "%H"'
+ExecStop=/usr/bin/docker stop couchbase
+
+[X-Fleet]
+Conflicts=couchbase_node.*.service
+Conflicts=couchbase_bootstrap_node.service

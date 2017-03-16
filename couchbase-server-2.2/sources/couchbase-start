@@ -1,0 +1,64 @@
+#!/bin/sh
+
+# Usage:
+#
+# couchbase-start -bootstrap 10.0.1.1
+#
+# which starts first node in the cluster, or to join an existing cluster:
+#
+# couchbase-start -join 10.0.1.1 10.0.1.2
+# 
+# where the first arg is the ip of the bootstrap node,
+# and second arg is the ip of the new node.
+ 
+function untilsuccessful() {
+	"$@"
+	while [ $? -ne 0 ]; do
+		echo Retrying...
+		sleep 1
+		"$@"
+	done
+}
+
+
+# Start Couchbase in background
+su - couchbase -c "/opt/couchbase/bin/couchbase-server -- -noinput" &
+PID=$!
+
+if [ $1 = -bootstrap ]; then
+
+    shift
+    IP=$1
+    CB_USERNAME_PASSWORD=$2  # eg, user:passw0rd
+    SPLIT=$(echo $CB_USERNAME_PASSWORD | tr ":" "\n")
+    CB_USERNAME=${SPLIT[0]}
+    CB_PASSWORD=${SPLIT[1]}
+
+    echo "Make Couchbase ($IP) the first cluster node"
+    untilsuccessful couchbase-cli cluster-init -c $IP \
+	--cluster-init-username=$CB_USERNAME \
+	--cluster-init-password=$CB_PASSWORD
+    untilsuccessful couchbase-cli bucket-create -c $IP \
+	-u $CB_USERNAME -p $CB_PASSWORD \
+	--bucket=default --bucket-ramsize=128      
+
+elif [ $1 = -join ]; then
+
+    shift
+    BOOTSTRAP_IP=$1
+    IP=$2
+    CB_USERNAME_PASSWORD=$3  # eg, user:passw0rd
+    SPLIT=$(echo $CB_USERNAME_PASSWORD | tr ":" "\n")
+    CB_USERNAME=${SPLIT[0]}
+    CB_PASSWORD=${SPLIT[1]}
+
+    echo "Make Couchbase ($IP) join the cluster via $BOOTSTRAP_IP with $CB_USERNAME / $CB_PASSWORD "
+    untilsuccessful couchbase-cli server-add -c $BOOTSTRAP_IP \
+	--user=$CB_USERNAME --password=$CB_PASSWORD \
+	--server-add=$IP
+    echo "$IP has join the cluster via $BOOTSTRAP_IP"
+
+fi
+
+# Wait indefinitely on Couchbase process
+wait $PID
