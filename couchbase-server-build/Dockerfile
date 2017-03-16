@@ -40,7 +40,7 @@ RUN mkdir -p /opt/couchbase-build/source
 WORKDIR /opt/couchbase-build/source
 
 # Checkout and build code
-RUN repo init -u git://github.com/tleyden/manifest -m branch-master-snapshot.xml && \
+RUN repo init -u git://github.com/couchbase/manifest -m released/4.0.0.xml && \
     repo sync
 
 # Build
