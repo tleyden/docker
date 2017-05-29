@@ -2,48 +2,60 @@ FROM ubuntu
 
 ENV GOPATH /opt/go
 
+# get the software proprerties common golang gcc and git
+# We need to install the software properties common before doing add-apt-repository, otherwise it will give an error: add-apt-repository: not found
 RUN apt-get update && apt-get install -y \
-	autoconf \
-	automake \
-	libtool \
-	autoconf-archive \
-	pkg-config \
-	libpng12-dev \
-	libjpeg8-dev \
-	libtiff5-dev \
-	zlib1g-dev \ 
-	libicu-dev \
-	libpango1.0-dev \
-	libcairo2-dev \
-	git \
-	golang \
-	gcc \
-	curl && \
-	rm -rf /var/lib/apt/lists/*
+  software-properties-common \
+  git \
+  golang \
+  gcc
 
-RUN curl http://www.leptonica.org/source/leptonica-1.74.1.tar.gz -o leptonica-1.74.1.tar.gz && \
-	tar -zxvf leptonica-1.74.1.tar.gz && \
-	cd leptonica-1.74.1 && ./configure && make && make install && \
-	cd .. && rm -rf leptonica*
+RUN add-apt-repository ppa:alex-p/tesseract-ocr && apt-get update
 
-RUN git clone --depth 1 https://github.com/tesseract-ocr/tesseract.git && \
-	cd tesseract && \
-	./autogen.sh && \
-	./configure && \
-	LDFLAGS="-L/usr/local/lib" CFLAGS="-I/usr/local/include" make && \
-	make install && \
-	ldconfig && \
-	make training && \
-	make training-install && \
-	cd .. && rm -rf tesseract
+# Get tesseract-ocr packages
+RUN apt-get install -y \
+  libleptonica-dev \
+  libtesseract4 \
+  libtesseract-dev \
+  tesseract-ocr
 
-# Get trainnedata
-RUN git clone https://github.com/tesseract-ocr/tessdata && \
-	mv  -v tessdata/* /usr/local/share/tessdata/ && \
-	rm -rf tessadata
+# Get language data.
+RUN apt-get install -y \
+  tesseract-ocr-ara \
+  tesseract-ocr-bel \
+  tesseract-ocr-ben \
+  tesseract-ocr-bul \
+  tesseract-ocr-ces \
+  tesseract-ocr-dan \
+  tesseract-ocr-deu \
+  tesseract-ocr-ell \
+  tesseract-ocr-fin \
+  tesseract-ocr-fra \
+  tesseract-ocr-heb \
+  tesseract-ocr-hin \
+  tesseract-ocr-ind \
+  tesseract-ocr-isl \
+  tesseract-ocr-ita \
+  tesseract-ocr-jpn \
+  tesseract-ocr-kor \
+  tesseract-ocr-nld \
+  tesseract-ocr-nor \
+  tesseract-ocr-pol \
+  tesseract-ocr-por \
+  tesseract-ocr-ron \
+  tesseract-ocr-rus \
+  tesseract-ocr-spa \
+  tesseract-ocr-swe \
+  tesseract-ocr-tha \
+  tesseract-ocr-tur \
+  tesseract-ocr-ukr \
+  tesseract-ocr-vie \
+  tesseract-ocr-chi-sim \
+  tesseract-ocr-chi-tra \
+  tesseract-ocr-eng
 
 RUN mkdir -p $GOPATH
-	
+
 # go get open-ocr
 RUN go get -u -v -t github.com/tleyden/open-ocr
 
@@ -51,4 +63,4 @@ RUN go get -u -v -t github.com/tleyden/open-ocr
 RUN cd $GOPATH/src/github.com/tleyden/open-ocr/cli-httpd && go build -v -o open-ocr-httpd && cp open-ocr-httpd /usr/bin
 
 # build open-ocr-worker binary and copy it to /usr/bin
-RUN cd $GOPATH/src/github.com/tleyden/open-ocr/cli-worker && go build -v -o open-ocr-worker && cp open-ocr-worker /usr/bin
+RUN cd $GOPATH/src/github.com/tleyden/open-ocr/cli-worker && go build -v -o open-ocr-worker && cp open-ocr-worker /usr/bin 
